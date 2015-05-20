@@ -76,7 +76,6 @@ class ViewController: UIViewController {
                 displayLabel.text = "\(opStack.last!)"
                 operationLabel.text = "\(sender.titleLabel!.text!)"
             }
-            operate(<#operation: Double -> Double##Double -> Double#>)
         }
         
         switch sender.titleLabel!.text! {
@@ -88,9 +87,17 @@ class ViewController: UIViewController {
         }
     }
     
+    @IBAction func hitPlusMinus() {
+        
+    }
+    
+    
     @IBAction func hitReset() {
         opStack = []
         displayLabel.text = "0"
         operationLabel.text = ""
+    }
+    
+    @IBAction func hitDelete() {
     }
 }
