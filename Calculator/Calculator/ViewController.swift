@@ -52,7 +52,7 @@ class ViewController: UIViewController {
         case "+": operate({ $0 + $1 })
         case "-": operate({ $1 - $0 })
         case "✕": operate({ $0 * $1 })
-        case "÷": operate({ $1 / $0 }) 
+        case "÷": operate({ $1 / $0 })
         default: break
         }
     }
