@@ -20,7 +20,11 @@ class ViewController: UIViewController {
         let number = sender.currentTitle!
         
         if userIsTyping {
-            displayLabel.text! += number
+            if displayLabel.text! == "-0" {
+                displayLabel.text = "-\(number)"
+            } else {
+                displayLabel.text! += number
+            }
         } else {
             displayLabel.text = number
             userIsTyping = true
@@ -41,13 +45,13 @@ class ViewController: UIViewController {
         
         func operate(operation: (Double, Double) -> Double) {
             if opStack.count >= 2 {
-                hitEnter()
                 opStack.append(operation(opStack.removeLast(), opStack.removeLast()))
                 displayLabel.text = "\(opStack.last!)"
-                operationLabel.text! += "\(sender.titleLabel!.text!) \(opStack.last!) "
+                operationLabel.text! += "\(sender.titleLabel!.text!) = \(opStack.last!) "
             }
         }
         
+        hitEnter()
         switch sender.titleLabel!.text! {
         case "+": operate({ $0 + $1 })
         case "-": operate({ $1 - $0 })
@@ -71,13 +75,13 @@ class ViewController: UIViewController {
     @IBAction func hitTrig(sender: UIButton) {
         func operate(operation: Double -> Double) {
             if opStack.count >= 1 {
-                hitEnter()
                 opStack.append(operation(opStack.removeLast()))
                 displayLabel.text = "\(opStack.last!)"
-                operationLabel.text = "\(sender.titleLabel!.text!)"
+                operationLabel.text = "= \(opStack.last!) "
             }
         }
         
+        hitEnter()
         switch sender.titleLabel!.text! {
         case "sin": operate({ sin($0) })
         case "cos": operate({ sin($0) })
@@ -88,7 +92,12 @@ class ViewController: UIViewController {
     }
     
     @IBAction func hitPlusMinus() {
-        
+        if userIsTyping {
+            displayLabel.text = "-\(displayLabel.text!)"
+        } else {
+            userIsTyping = true
+            displayLabel.text = "-0"
+        }
     }
     
     
@@ -99,5 +108,12 @@ class ViewController: UIViewController {
     }
     
     @IBAction func hitDelete() {
+        if userIsTyping {
+            displayLabel.text = dropLast(displayLabel.text!)
+            if displayLabel.text == nil || displayLabel.text == "" {
+                displayLabel.text = "0"
+                userIsTyping = false
+            }
+        }
     }
 }
