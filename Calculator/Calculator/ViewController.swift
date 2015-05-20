@@ -10,11 +10,10 @@ import UIKit
 
 class ViewController: UIViewController {
     @IBOutlet weak var displayLabel: UILabel!
-    @IBOutlet weak var operationLabel: UILabel!
+    @IBOutlet weak var operationLabel: UITextView!
 
     var opStack: [Double] = []
     var userIsTyping = false
-    
     
     @IBAction func hitNumber(sender: UIButton) {
         let number = sender.currentTitle!
@@ -77,7 +76,7 @@ class ViewController: UIViewController {
             if opStack.count >= 1 {
                 opStack.append(operation(opStack.removeLast()))
                 displayLabel.text = "\(opStack.last!)"
-                operationLabel.text = "= \(opStack.last!) "
+                operationLabel.text! += "= \(opStack.last!) "
             }
         }
         
